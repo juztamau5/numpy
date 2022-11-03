@@ -428,29 +428,7 @@ def check_types(config_cmd, ext, build_dir):
     return private_defines, public_defines
 
 def check_mathlib(config_cmd):
-    # Testing the C math library
-    mathlibs = []
-    mathlibs_choices = [[], ["m"], ["cpml"]]
-    mathlib = os.environ.get("MATHLIB")
-    if mathlib:
-        mathlibs_choices.insert(0, mathlib.split(","))
-    for libs in mathlibs_choices:
-        if config_cmd.check_func(
-            "log",
-            libraries=libs,
-            call_args="0",
-            decl="double log(double);",
-            call=True
-        ):
-            mathlibs = libs
-            break
-    else:
-        raise RuntimeError(
-            "math library missing; rerun setup.py after setting the "
-            "MATHLIB env variable"
-        )
-    return mathlibs
-
+    return [ "m" ]
 
 def visibility_define(config):
     """Return the define value to use for NPY_VISIBILITY_HIDDEN (may be empty
