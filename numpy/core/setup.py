@@ -187,11 +187,6 @@ def check_math_capabilities(config, ext, moredefs, mathlibs):
                 ext.extra_compile_args.extend(
                         ['-ffixed-xmm%s' % n for n in range(16, 32)])
 
-    #use_msvc = config.check_decl("_MSC_VER")
-    if not check_funcs_once(MANDATORY_FUNCS, add_to_moredefs=False):
-        raise SystemError("One of the required function to build numpy is not"
-                " available (the list is %s)." % str(MANDATORY_FUNCS))
-
     # Standard functions which may not be available and for which we have a
     # replacement implementation. Note that some of these are C99 functions.
 
