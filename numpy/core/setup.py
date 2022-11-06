@@ -255,33 +255,6 @@ def check_complex(config, mathlibs):
     priv = []
     pub = []
 
-    # Check for complex support
-    st = config.check_header('complex.h')
-    if st:
-        priv.append(('HAVE_COMPLEX_H', 1))
-        pub.append(('NPY_USE_C99_COMPLEX', 1))
-
-        for t in C99_COMPLEX_TYPES:
-            st = config.check_type(t, headers=["complex.h"])
-            if st:
-                pub.append(('NPY_HAVE_%s' % type2def(t), 1))
-
-        def check_prec(prec):
-            flist = [f + prec for f in C99_COMPLEX_FUNCS]
-            decl = dict([(f, True) for f in flist])
-            if not config.check_funcs_once(flist, call=decl, decl=decl,
-                                           libraries=mathlibs):
-                for f in flist:
-                    if config.check_func(f, call=True, decl=True,
-                                         libraries=mathlibs):
-                        priv.append((fname2def(f), 1))
-            else:
-                priv.extend([(fname2def(f), 1) for f in flist])
-
-        check_prec('')
-        check_prec('f')
-        check_prec('l')
-
     return priv, pub
 
 def check_ieee_macros(config):
