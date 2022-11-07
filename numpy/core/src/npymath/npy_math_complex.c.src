@@ -1340,7 +1340,7 @@ npy_@kind@@c@(@ctype@ z)
     __@ctype@_to_c99_cast z1;
     __@ctype@_to_c99_cast ret;
     z1.npy_z = z;
-    ret.c99_z = @kind@@c@(z1.c99_z);
+    //ret.c99_z = @kind@@c@(z1.c99_z);
     return ret.npy_z;
 }
 /**end repeat1**/
